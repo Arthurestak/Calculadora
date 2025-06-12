@@ -2,7 +2,8 @@
     width: 400px;
 };
 
-input.display{
+input{
+    height: 100px;
     font-size: 2em;
     width:100%;
     text-align: right;
