@@ -1,48 +1,50 @@
 function criaCalculadora(){
     return{
-        get inicia(){
+        inicia(){
             this.cliqueBotoes()
-        },
-        apagaDisplay(){
-            this.display.value = ''
-        },
-        apagaUm(){
-            this.display.value = this.display.value.slice(0, -1) 
-        },
-        resolveQuestao(operacao){
-            
-            const resultado = eval(`${operacao}`)
-            return resultado
+            this.btEnter()
         },
         display: document.querySelector('.display'),
-        cliqueBotoes(){
-            document.addEventListener('click', (e)=>{
-                const el = e.target;
-                if (el.classList.contains('btn-num')){
-                    this.btnParaDisplay(el.innerText)   
-                }
-                if(el.classList.contains('btn-numX')){
-                    this.btnParaDisplay('*')
-                }
-                if (el.classList.contains('btn-clear')){
-                    this.apagaDisplay()
-                }
-                if (el.classList.contains('btn-del')){
-                    this.apagaUm()
-                }
-                if (el.classList.contains('btn-eq')){
-                    const resultado = this.resolveQuestao(this.display.value)
+        btEnter(){
+            this.display.addEventListener('keyup', e =>{
+                if (e.key === 'Enter'){
+                    const resultado = this.realizaConta(this.display.value)
                     this.display.value = resultado
                 }
-                
             })
         },
-        btnParaDisplay(valor){
-            this.display.value += valor
+        realizaConta(operacao){
+            try{
+                const resultado = eval(`${operacao}`)
+                return resultado
+            }
+            catch(e){
+                alert(`Ocorreu um erro "${e}"`)
+            }
+        },
+        cliqueBotoes(){
+            document.addEventListener('click', e =>{
+                const el = e.target
+                if(el.classList.contains('btn-num')){
+                    this.display.value += el.innerText
+                }
+                if (el.classList.contains('btn-eq')){
+                    const resultado = this.realizaConta(this.display.value)
+                    this.display.value = resultado
+                }
+                if (el.classList.contains('btn-del')){
+                    this.display.value = this.display.value.slice(0, -1)
+                }
+                if (el.classList.contains('btn-numX')){
+                    this.display.value += '*'
+                }
+                if (el.classList.contains('btn-clear')){
+                    this.display.value = ''
+                }
+            })
         },
         
     }
 }
-
 const calculadora = criaCalculadora()
-calculadora.inicia 
+calculadora.inicia()
