@@ -72,15 +72,18 @@ const Calculadora = function(){
     this.digita = () => {
         document.addEventListener('keyup', e =>{
             if (isDigit(e.key)){
-                display.value += e.key       
+                display.focus()
             }
             if (e.key === 'Enter'){
+                display.focus()
                 display.value = calcula(display.value)
             }
             if (e.key === 'Backspace'){
+                display.focus()
                 display.value = display.value.slice(0,-1)
             }
             if (e.key === ','){
+                display.focus()
                 display.value += '.'
             }
         })
@@ -90,22 +93,28 @@ const Calculadora = function(){
         document.addEventListener('click', e =>{
             const el = e.target
             if (el.classList.contains('btn-num')){
+                display.focus()
                 display.value += el.innerText
             }
             if (el.classList.contains('btn-numX')){
+                display.focus()
                 display.value += '*'
             }
             if (el.classList.contains('btn-clear')){
+                display.focus()
                 display.value = ''
             }
             if (el.classList.contains('btn-del')){
+                display.focus()
                 display.value = display.value.slice(0, -1)
             }
             if (el.classList.contains('btn-clear')){
+                display.focus()
                 display.value = ''
             }
             if (el.classList.contains('btn-eq')){
                 if(calcula(display.value)){
+                    display.focus()
                     display.value = calcula(display.value)
                 }
             }
